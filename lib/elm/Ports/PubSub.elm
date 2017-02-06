@@ -1,16 +1,16 @@
 port module Ports.PubSub exposing (..)
 
 
-import Json.Encode as JE
+import Json.Encode
 
 
-type alias Message = String
-type alias Payload = JE.Value
+type alias Event = String
+type alias Payload = Json.Encode.Value
 
 
 -- Send to JS (Cmd)
-port broadcast : (Message, Payload) -> Cmd msg
+port broadcast : (Event, Payload) -> Cmd msg
 
 
 -- Receive from JS (Sub)
-port receiveBroadcast : ((Message, Payload) -> msg) -> Sub msg
+port receiveBroadcast : ((Event, Payload) -> msg) -> Sub msg

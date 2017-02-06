@@ -29,18 +29,18 @@ function clearApps() {
 }
 
 /**
- * Send a PubSub message to every Elm app registered.
+ * Send a PubSub event to every Elm app registered.
  *
- * @param  {String}       message The name of the message being sent
- * @param  {Serializable} payload The payload being sent with the message
+ * @param  {String}       event    The event being published
+ * @param  {Serializable} payload  The payload associated with the event
  */
 function broadcast(log) {
-  return ([message, payload]) => {
-    log("broadcast", message, payload);
+  return ([event, payload]) => {
+    log("broadcast", event, payload);
 
     portsObjects.forEach(ports => {
       if (ports.receiveBroadcast) {
-        ports.receiveBroadcast.send([message, payload]);
+        ports.receiveBroadcast.send([event, payload]);
       }
     });
   };
