@@ -20,7 +20,7 @@ Add `node_modules/elm-pub-sub-ports/lib/elm` to your `source-directories`:
     // ...
 
     "source-directories": [
-        "../../node_modules/elm-router/lib/elm",
+        "../../node_modules/elm-pub-sub-ports/lib/elm",
         "./"
     ],
 
