@@ -1,18 +1,29 @@
 # API Reference
 
+## Type Aliases for Port Signatures
+
+```elm
+type alias Event = String
+type alias Payload = Json.Encode.Value
+```
+
 ## Commands
 
 ### `broadcast`
 
-> Broadcast a message to all other Elm apps that are listening
-
-**Usage:**
+> Broadcast an event to all other Elm apps that are listening
 
 ```elm
-Ports.PubSub.broadcast ("message", payload)
+port broadcast : (Event, Payload) -> Cmd msg
 ```
 
-`message` is the string that you'll match on when receiving messages.
+**Example Usage:**
+
+```elm
+Ports.PubSub.broadcast ("somethingHappened", payload)
+```
+
+`"somethingHappened"` is the string that you'll match on when receiving events.
 `payload` is a `Json.Encode.Value`. (See [Json.Encode](http://package.elm-lang.org/packages/elm-lang/core/latest/Json-Encode) if you're unfamiliar.)
 
 ## Subscriptions
@@ -21,7 +32,11 @@ Ports.PubSub.broadcast ("message", payload)
 
 > Receive a broadcast sent by any Elm app
 
-**Usage:**
+```elm
+port receiveBroadcast : ((Event, Payload) -> msg) -> Sub msg
+```
+
+**Example Usage:**
 
 ```elm
 type Msg
@@ -34,7 +49,7 @@ subscriptions =
 
 update msg model =
   case msg of
-    ReceiveBroadcast ("message", payload) -> -- Receive broadcasts with
+    ReceiveBroadcast ("somethingHappened", payload) -> -- Receive broadcasts with
       case Json.Decode.decodeValue someDecoder payload of
         Ok payload_ ->
           -- Do something with payload_

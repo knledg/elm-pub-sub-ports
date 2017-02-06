@@ -16,11 +16,12 @@ Add `node_modules/elm-pub-sub-ports/lib/elm` to your `source-directories`:
 
 ```js
 // elm-package.json
+
 {
     // ...
 
     "source-directories": [
-        "../../node_modules/elm-pub-sub-ports/lib/elm",
+        "../../node_modules/elm-pub-sub-ports/lib/elm", // Exact path to node_modules may be different for you
         "./"
     ],
 
