@@ -1,6 +1,6 @@
 {
   "name": "elm-pub-sub-ports",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Generic Elm ports for cross-application communication",
   "main": "lib/js/pub-sub-ports.js",
   "scripts": {
