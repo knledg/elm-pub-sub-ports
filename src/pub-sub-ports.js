@@ -16,24 +16,6 @@ let portsObjects = []; // Holds ports objects; should be cleared out via `clearA
 function register(ports, log) {
   portsObjects.push(ports);
   ports.broadcast.subscribe(broadcast(log));
-
-  /**
-   * Send a PubSub message to every Elm app registered.
-   *
-   * @param  {String}       message The name of the message being sent
-   * @param  {Serializable} payload The payload being sent with the message
-   */
-  function broadcast(log) {
-    return ([message, payload]) => {
-      log("broadcast", message, payload);
-
-      portsObjects.forEach(ports => {
-        if (ports.receiveBroadcast) {
-          ports.receiveBroadcast.send([message, payload]);
-        }
-      });
-    };
-  }
 }
 
 /**
@@ -44,4 +26,22 @@ function register(ports, log) {
  */
 function clearApps() {
   portsObjects = [];
+}
+
+/**
+ * Send a PubSub message to every Elm app registered.
+ *
+ * @param  {String}       message The name of the message being sent
+ * @param  {Serializable} payload The payload being sent with the message
+ */
+function broadcast(log) {
+  return ([message, payload]) => {
+    log("broadcast", message, payload);
+
+    portsObjects.forEach(ports => {
+      if (ports.receiveBroadcast) {
+        ports.receiveBroadcast.send([message, payload]);
+      }
+    });
+  };
 }
