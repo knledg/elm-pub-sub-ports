@@ -1,4 +1,4 @@
-# Elm PubSub Ports
+# Elm PubSub Ports [![Build Status](https://travis-ci.org/knledg/elm-pub-sub-ports.svg?branch=master)](https://travis-ci.org/knledg/elm-pub-sub-ports)
 
 Cross-application communication between Elm apps via the publish-subscribe model.
 
