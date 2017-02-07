@@ -63,6 +63,15 @@ update msg model =
 
 ### 4. Register your Elm app in JavaScript
 
+#### Using [Elm Router](https://github.com/knledg/elm-router)
+
+```javascript
+var pubSubPorts = require('elm-pub-sub-ports');
+elmRouter.start(Elm, [pubSubPorts]);
+```
+
+#### Without Elm Router
+
 ```javascript
 var pubSubPorts = require("elm-pub-sub-ports");
 var appSendingMessages = Elm.AppSendingMessages.embed(document.getElementById("app-sending-messages-container"));
