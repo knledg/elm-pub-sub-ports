@@ -14,6 +14,8 @@ let portsObjects = []; // Holds ports objects; should be cleared out via `clearA
  * @param  {Function} log    Function to log ports for the given Elm app
  */
 function register(ports, log) {
+  log = log || function() {};
+
   portsObjects.push(ports);
   ports.broadcast.subscribe(broadcast(log));
 }
