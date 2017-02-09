@@ -49,8 +49,8 @@ type Msg
   = ReceiveBroadcast (String, Json.Encode.Value)
 
 
-subscriptions =
-  PubSub.receiveBroadcast ReceiveBroadcast
+subscriptions model =
+  Ports.PubSub.receiveBroadcast ReceiveBroadcast
 
 
 update msg model =

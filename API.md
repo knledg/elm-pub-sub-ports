@@ -40,7 +40,7 @@ type Msg
   = ReceiveBroadcast (String, Json.Decode.Value)
 
 
-subscriptions =
+subscriptions model =
   Ports.PubSub.receiveBroadcast ReceiveBroadcast -- Add this to subscriptions
 
 
