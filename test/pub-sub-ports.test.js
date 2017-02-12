@@ -2,16 +2,6 @@ const pubSubPorts = require('../src/pub-sub-ports');
 
 let mockPorts;
 
-function portResponse(portFn, responseNumber) {
-  const call = portFn.send.mock.calls[0];
-
-  if (!call) {
-    throw `call number ${responseNumber || 0} doesn't exist`;
-  }
-
-  return call[responseNumber || 0];
-}
-
 function port(portFn) {
   return portFn.subscribe.mock.calls[0][0];
 }
@@ -34,8 +24,7 @@ describe('pub-sub-ports', () => {
     test('sends the event and payload to `receiveBroadcast` for the Elm app which published the event', () => {
       port(mockPorts.broadcast)(['searchPerformed', 'Phoenix, AZ']);
 
-      expect(portResponse(mockPorts.receiveBroadcast))
-        .toEqual(['searchPerformed', 'Phoenix, AZ']);
+      expect(mockPorts.receiveBroadcast.send).toHaveBeenCalledWith(['searchPerformed', 'Phoenix, AZ']);
     });
 
     test('sends the event and payload to `receiveBroadcast` for every other Elm app for which pub-sub-ports are registered', () => {
@@ -51,46 +40,41 @@ describe('pub-sub-ports', () => {
 
       port(mockPorts.broadcast)(['someEvent', {foo: "bar"}]);
 
-      expect(portResponse(mockPorts2.receiveBroadcast)).toEqual(['someEvent', {foo: "bar"}]);
-      expect(portResponse(mockPorts3.receiveBroadcast)).toEqual(['someEvent', {foo: "bar"}]);
-      expect(portResponse(mockPorts4.receiveBroadcast)).toEqual(['someEvent', {foo: "bar"}]);
-      expect(portResponse(mockPorts5.receiveBroadcast)).toEqual(['someEvent', {foo: "bar"}]);
+      expect(mockPorts2.receiveBroadcast.send).toHaveBeenCalledWith(['someEvent', {foo: "bar"}]);
+      expect(mockPorts3.receiveBroadcast.send).toHaveBeenCalledWith(['someEvent', {foo: "bar"}]);
+      expect(mockPorts4.receiveBroadcast.send).toHaveBeenCalledWith(['someEvent', {foo: "bar"}]);
+      expect(mockPorts5.receiveBroadcast.send).toHaveBeenCalledWith(['someEvent', {foo: "bar"}]);
     });
 
     describe('sends the payload to `receiveBroadcast` no matter the type', () => {
       test('string', () => {
         port(mockPorts.broadcast)(['someEvent', 'a string']);
 
-        expect(portResponse(mockPorts.receiveBroadcast))
-          .toEqual(['someEvent', 'a string']);
+        expect(mockPorts.receiveBroadcast.send).toHaveBeenCalledWith(['someEvent', 'a string']);
       });
 
       test('number', () => {
         port(mockPorts.broadcast)(['someEvent', 3]);
 
-        expect(portResponse(mockPorts.receiveBroadcast))
-          .toEqual(['someEvent', 3]);
+        expect(mockPorts.receiveBroadcast.send).toHaveBeenCalledWith(['someEvent', 3]);
       });
 
       test('bool', () => {
         port(mockPorts.broadcast)(['someEvent', true]);
 
-        expect(portResponse(mockPorts.receiveBroadcast))
-          .toEqual(['someEvent', true]);
+        expect(mockPorts.receiveBroadcast.send).toHaveBeenCalledWith(['someEvent', true]);
       });
 
       test('object', () => {
         port(mockPorts.broadcast)(['someEvent', {testing: 123}]);
 
-        expect(portResponse(mockPorts.receiveBroadcast))
-          .toEqual(['someEvent', {testing: 123}]);
+        expect(mockPorts.receiveBroadcast.send).toHaveBeenCalledWith(['someEvent', {testing: 123}]);
       });
 
       test('array', () => {
         port(mockPorts.broadcast)(['someEvent', ["lol", 1, {a: false}]]);
 
-        expect(portResponse(mockPorts.receiveBroadcast))
-          .toEqual(['someEvent', ["lol", 1, {a: false}]]);
+        expect(mockPorts.receiveBroadcast.send).toHaveBeenCalledWith(['someEvent', ["lol", 1, {a: false}]]);
       });
     });
   });
