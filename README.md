@@ -1,4 +1,4 @@
-# Elm PubSub Ports [![Build Status](https://travis-ci.org/knledg/elm-pub-sub-ports.svg?branch=master)](https://travis-ci.org/knledg/elm-pub-sub-ports)
+# Elm PubSub Ports [![Build Status](https://travis-ci.org/paulstatezny/elm-pub-sub-ports.svg?branch=master)](https://travis-ci.org/paulstatezny/elm-pub-sub-ports)
 
 Cross-application communication between Elm apps via the publish-subscribe model.
 
@@ -63,7 +63,7 @@ update msg model =
 
 ### 4. Register your Elm app in JavaScript
 
-#### Using [Elm Router](https://github.com/knledg/elm-router)
+#### Using [Elm Router](https://github.com/paulstatezny/elm-router)
 
 ```javascript
 var pubSubPorts = require('elm-pub-sub-ports');
@@ -87,4 +87,4 @@ pubSubPorts.register(appReceivingMessages.ports);
 
 ## Questions or Problems?
 
-Feel free to create an issue in the [GitHub issue tracker](https://github.com/knledg/elm-pub-sub-ports/issues).
+Feel free to create an issue in the [GitHub issue tracker](https://github.com/paulstatezny/elm-pub-sub-ports/issues).
